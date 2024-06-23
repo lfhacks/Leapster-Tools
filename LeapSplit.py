@@ -55,6 +55,8 @@ def getSYN(file, offset, deviceStartAddress):
         rom.seek(offset)
         SYN = rom.read(4)
         header, tracks = struct.unpack("<HH",SYN)
+        for tracktableindex in range(tracks):
+            SYN += rom.read(4)
         while hits != tracks:
             readForCheck = rom.read(1)
             SYN = SYN+readForCheck
@@ -102,7 +104,7 @@ def parseInstrumentInfo(file, offset, deviceStartAddress, ID): #Parse the actual
                     start_note = rom.read(1)[0]
                     end_note = rom.read(1)[0]
                     decay_rate = struct.unpack("<H",rom.read(2))[0]
-                    if sample_start in range(0x300,0xFFFFFF):
+                    if sample_start in range(0x1,0x1FFFFFF):
                         instrument = [sample_start,sample_end,loop_start,loop_end,pitch,start_note,end_note,decay_rate]
                         fullSample = getSample(file, sample_start, sample_end, loop_start, loop_end, ID, sample, paths)
                         samples.write(fullSample)
@@ -111,7 +113,7 @@ def parseInstrumentInfo(file, offset, deviceStartAddress, ID): #Parse the actual
                         doc.write(instrumentInfo)
                     if end_note == 0x7F: #End of instrument, break free from the loop
                         break
-    fullInstrument.append(instrument)
+        fullInstrument.append(instrument)
 
     return fullInstrument
 
