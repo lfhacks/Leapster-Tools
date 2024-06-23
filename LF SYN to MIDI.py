@@ -14,7 +14,6 @@ currentTrack = 0
 
 # Function to add MIDI messages to the track
 def add_midi_message(message_type, channel, data1, data2, delta_time):
-    global current_time
     if message_type == 'program_change':
         track.append(mido.Message('program_change', program=data1, channel=channel, time=delta_time))
     elif message_type == 'control_change':
@@ -23,6 +22,9 @@ def add_midi_message(message_type, channel, data1, data2, delta_time):
         track.append(mido.Message('note_on', note=data1, velocity=data2, channel=channel, time=delta_time))
     elif message_type == 'note_off':
         track.append(mido.Message('note_off', note=data1, velocity=0, channel=channel, time=delta_time))
+    elif message_type == 'pitch_wheel':
+        track.append(Message('pitch_wheel', channel=channel, velocity = 0, pitch=1, time=0))
+    
         
 for file_path in files:
     mid = mido.MidiFile(type=1)
@@ -41,14 +43,15 @@ for file_path in files:
             track.append(mido.MetaMessage('set_tempo', tempo=1800000))
             syn.seek(trackoffset)
             currentSynTrack += 1
-            
+            current_bend = 8192
             if currentSynTrack == 9: #The bothersome "percussion" channel must be stopped. It has ruined countless lives and - oh, wait. I can just skip it.
                 currentSynTrack += 1
                 print("Skipped that one track everyone hates. Yay!")
 
             while True:
-                
                 data = syn.read(1)
+                if len(data) == 0:
+                    break
                 try:
                     if data[0] == 0x81: #PitchShift required.
                         add_midi_message('control_change', currentSynTrack, 108, 0, 0)
@@ -73,8 +76,29 @@ for file_path in files:
                             add_midi_message('program_change', currentSynTrack, instrument, None, 0)
 
                     if data[0] == 0x8A: #Pitch bend
-                        break #Not implemented, will break the output and kill the conversion with an error anyways.
+                        bend = struct.unpack("<b", syn.read(1))[0]
+                        duration = syn.read(1)[0]
+                        if duration == 0x80:
+                            duration -= 0x7F
+                            duration_2 = syn.read(1)[0]
+                            duration += duration_2
+                        elif duration >= 0x81 and duration < 0xFF:
+                            duration -= 0x80
+                            if duration <= 0xF:
+                                main = str(hex(duration))[2:3]
+                            else:
+                                main = str(hex(duration))[2:4]
+                            duration_2 = str(hex(syn.read(1)[0]))[2:4]
                             
+                            if len(duration_2) == 2:
+                                duration = int(str("0x"+main+duration_2), 16)
+                            else:
+                                duration = int(str("0x"+main+"0"+duration_2), 16)
+                        add_midi_message('note_on', currentSynTrack, note, 127, 0)
+                        add_midi_message('note_off', currentSynTrack, note, 127, duration) #Now end the note
+                        add_midi_message('pitch_wheel', currentSynTrack, current_bend+bend, 127, 0)
+
+
                     if data[0] == 0x8E: #Start of loop
                         loopCount = syn.read(1)[0]
                         add_midi_message('control_change', currentSynTrack, 110, loopCount, 0)
@@ -102,8 +126,6 @@ for file_path in files:
                                 duration = int(str("0x"+main+duration_2), 16)
                             else:
                                 duration = int(str("0x"+main+"0"+duration_2), 16)
-                        elif duration == 0xFF:
-                            print("LONG duration")
                         if note >= 1:
                             add_midi_message('note_on', currentSynTrack, note, 127, 0)
                         add_midi_message('note_off', currentSynTrack, note, 127, duration) #Now end the note
@@ -112,6 +134,7 @@ for file_path in files:
                         break
                 except:
                     if syn.tell() == os.path.getsize(file_path):
+                        print("Oops!")
                         break
             syn.seek(lastTrack)
         base, ext = os.path.splitext(file_path)
