@@ -38,7 +38,7 @@ for file_path in files:
             lastTrack = syn.tell()
             track = mido.MidiTrack()
             mid.tracks.append(track)
-            track.append(mido.MetaMessage('set_tempo', tempo=10000))
+            track.append(mido.MetaMessage('set_tempo', tempo=1800000))
             syn.seek(trackoffset)
             currentSynTrack += 1
             
@@ -106,7 +106,7 @@ for file_path in files:
                             print("LONG duration")
                         if note >= 1:
                             add_midi_message('note_on', currentSynTrack, note, 127, 0)
-                        add_midi_message('note_off', currentSynTrack, note, 127, duration*180) #Now end the note
+                        add_midi_message('note_off', currentSynTrack, note, 127, duration) #Now end the note
 
                     if data[0] == 0xFF: #End of sequence
                         break
