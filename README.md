@@ -26,7 +26,7 @@ How to open the bin files in the Instruments and RAW folders:
 This will not work on the bin files in the LPC folder! Those use an unknown, custom codec that has yet to be reverse engineered.
 
 # LF SYN to MIDI
-This (work-in-progress) script converts SYN files to MIDI files. Anything that uses command 0x82 *will* desync!
+This (work in progress) script converts SYN files to MIDI files. Anything that uses command 0x82 *will* desync!
 
 How to use LF SYN to MIDI:
 - Be sure mido is installed (run "pip install mido")
