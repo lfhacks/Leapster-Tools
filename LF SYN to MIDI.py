@@ -82,14 +82,20 @@ for file_path in files:
                             duration -= 0x7F
                             duration_2 = syn.read(1)[0]
                             duration += duration_2
-                        elif duration >= 0x81:
+                        elif duration >= 0x81 and duration < 0xFF:
                             duration -= 0x80
-                            main = str(hex(duration))[2:3]
+                            if duration <= 0xF:
+                                main = str(hex(duration))[2:3]
+                            else:
+                                main = str(hex(duration))[2:4]
                             duration_2 = str(hex(syn.read(1)[0]))[2:4]
+                            
                             if len(duration_2) == 2:
                                 duration = int(str("0x"+main+duration_2), 16)
                             else:
                                 duration = int(str("0x"+main+"0"+duration_2), 16)
+                        elif duration == 0xFF:
+                            print("LONG duration")
                         if note >= 1:
                             add_midi_message('note_on', synTrack, note, 127, 0)
                         add_midi_message('note_off', synTrack, note, 127, duration*200) #Now end the note
