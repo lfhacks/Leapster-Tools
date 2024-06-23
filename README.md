@@ -25,6 +25,10 @@ How to open the bin files in the Instruments and RAW folders:
 
 This will not work on the bin files in the LPC folder! Those use an unknown, custom codec that has yet to be reverse engineered.
 
+Known issues with LeapSplit:
+- A few ROMs make the script throw an error
+- LPC extraction is incomplete and the format still needs to be figured out
+
 # LF SYN to MIDI
 This (work in progress) script converts SYN files to MIDI files. It's near-perfect for anything without any pitch bends, but some stuff still makes the script lock up or skip a track.
 
@@ -35,5 +39,4 @@ How to use LF SYN to MIDI:
 - Select them all and hit enter or the "open" button
 
 Known errors (in other words, do not report these bugs. They're already known!)
-- Some SYN files make the script lock up during conversion
-- Any tracks with pitch bends get skipped
+- Pitch bends are a bit janky
