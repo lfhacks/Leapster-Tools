@@ -29,8 +29,10 @@ for file_path in files:
     with open(file_path, "rb") as syn:
         header, track_count = struct.unpack("<HH",syn.read(4))
         print(track_count)
+        currentSynTrack = 0
         for synTrack in range(track_count):
             tracks = 0
+            
             trackoffset, trackID = struct.unpack("<HH",syn.read(4))
             print(trackoffset)
             lastTrack = syn.tell()
@@ -38,42 +40,48 @@ for file_path in files:
             mid.tracks.append(track)
             track.append(mido.MetaMessage('set_tempo', tempo=10000))
             syn.seek(trackoffset)
+            currentSynTrack += 1
+            
+            if currentSynTrack == 9: #The bothersome "percussion" channel must be stopped. It has ruined countless lives and - oh, wait. I can just skip it.
+                currentSynTrack += 1
+                print("Skipped that one track everyone hates. Yay!")
+
             while True:
                 
                 data = syn.read(1)
                 try:
                     if data[0] == 0x81: #PitchShift required.
-                        add_midi_message('control_change', synTrack, 108, 0, 0)
+                        add_midi_message('control_change', currentSynTrack, 108, 0, 0)
                     if data[0] == 0x82: #PitchShift not required.
-                        add_midi_message('control_change', synTrack, 106, 0, 0)
+                        add_midi_message('control_change', currentSynTrack, 106, 0, 0)
                     if data[0] == 0x83: #Reserve voice
-                        add_midi_message('control_change', synTrack, 107, 0, 0)
+                        add_midi_message('control_change', currentSynTrack, 107, 0, 0)
                     if data[0] == 0x84: #Release voice
-                        add_midi_message('control_change', synTrack, 109, 0, 0)
+                        add_midi_message('control_change', currentSynTrack, 109, 0, 0)
                 
                     
                     if data[0] == 0x88: #Set volume
                         volume = syn.read(1)[0]
-                        add_midi_message('control_change', synTrack, 7, volume, 0)
+                        add_midi_message('control_change', currentSynTrack, 7, volume, 0)
                     
                     if data[0] == 0x89: #Program change
                         instrument = syn.read(1)[0]
                         if instrument < 0x80:
-                            add_midi_message('program_change', synTrack, instrument, None, 0)
+                            add_midi_message('program_change', currentSynTrack, instrument, None, 0)
                         else: #This SYN gets instruments from the cartridge instead (prefix 0xC0)
                             instrument = syn.read(1)[0]
-                            add_midi_message('program_change', synTrack, instrument, None, 0)
+                            add_midi_message('program_change', currentSynTrack, instrument, None, 0)
 
                     if data[0] == 0x8A: #Pitch bend
                         break #Not implemented, will break the output and kill the conversion with an error anyways.
                             
                     if data[0] == 0x8E: #Start of loop
                         loopCount = syn.read(1)[0]
-                        add_midi_message('control_change', synTrack, 110, loopCount, 0)
+                        add_midi_message('control_change', currentSynTrack, 110, loopCount, 0)
                         
                     if data[0] == 0x8F: #End of loop
                         zero = syn.read(1)[0]
-                        add_midi_message('control_change', synTrack, 111, zero, 0)
+                        add_midi_message('control_change', currentSynTrack, 111, zero, 0)
                         
                     if data[0] in range(0x00, 0x7F):
                         note = data[0]
@@ -97,8 +105,8 @@ for file_path in files:
                         elif duration == 0xFF:
                             print("LONG duration")
                         if note >= 1:
-                            add_midi_message('note_on', synTrack, note, 127, 0)
-                        add_midi_message('note_off', synTrack, note, 127, duration*200) #Now end the note
+                            add_midi_message('note_on', currentSynTrack, note, 127, 0)
+                        add_midi_message('note_off', currentSynTrack, note, 127, duration*180) #Now end the note
 
                     if data[0] == 0xFF: #End of sequence
                         break
