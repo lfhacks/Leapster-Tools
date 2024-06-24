@@ -30,7 +30,7 @@ Known issues with LeapSplit:
 - LPC extraction is incomplete and the format still needs to be figured out
 
 # LF SYN to MIDI
-This (work in progress) script converts SYN files to MIDI files. It's near-perfect for anything without any pitch bends, but some stuff still makes the script lock up or skip a track.
+This (work in progress) script converts SYN files to MIDI files. It's near-perfect now, but the implementation of pitch bends and volume commands could use some work.
 
 How to use LF SYN to MIDI:
 - Be sure mido is installed (run "pip install mido")
