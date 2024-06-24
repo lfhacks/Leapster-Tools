@@ -17,7 +17,7 @@ How to use LeapSplit:
 - Dig through the assets that have been extracted from your ROM (should be in {script folder}/Split_ROMs/{game name}/)
 
 How to open the bin files in the Instruments and RAW folders:
-- Get Foobar2000.
+- Get Foobar2000 (the latest version is preferred).
 - Get the VGMStream plugin.
 - Go to file -> preferences -> playback -> decoding -> vgmstream
 - Check if the "Enable unknown exts" and "Enable common exts" options are enabled. If not, enable them and hit "Apply"
