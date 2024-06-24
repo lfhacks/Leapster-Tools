@@ -41,3 +41,17 @@ How to use LF SYN to MIDI:
 Known errors (in other words, do not report these bugs. They're already known!)
 - Pitch bends are a bit janky
 - Volume commands start a bit late, making some stuff sound off
+
+If you try to play these with Foobar2000, use this plugin since it natively supports LeapFrog looping information:
+
+https://github.com/stuerp/foo_midi
+
+If the plugin crashes on the 64-Bit version or fails to install, get the 32-Bit version of Foobar. All important settings are in File > preferences > Playback > Decoding > MIDI Player. The best plugin for this is BASSMIDI, as it supports soundfonts.
+
+Foobar download page:
+
+https://www.foobar2000.org/download
+
+Incomplete (but usable) Leapster soundfont:
+
+[Trash-Font 10.zip](https://github.com/user-attachments/files/15954614/Trash-Font.10.zip)
