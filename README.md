@@ -40,3 +40,4 @@ How to use LF SYN to MIDI:
 
 Known errors (in other words, do not report these bugs. They're already known!)
 - Pitch bends are a bit janky
+- Volume commands start a bit late, making some stuff sound off
