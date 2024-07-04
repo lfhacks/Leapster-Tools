@@ -42,7 +42,7 @@ def getLPC(file, offset, deviceStartAddress): #Incomplete!
                 data2 = rom.read(1)
                 outData = outData+data2
                 if data2 == b'\x0F':
-                    continueScanning == False
+                    continueScanning = False
                     break
                 else:
                     "" #Keep going
