@@ -1,6 +1,7 @@
 # Leapster-Tools
 A replacement for LeapFrog-Tools with an end goal of having the highest accuracy possible with each tool. This repository is only for the Leapster, Leapster TV, Leapster L-Max and Leapster 2!
 
+Feel free to reimplement, borrow or use this documentation for your own research and tools.
 
 # LeapSplit
 Currently, LeapSplit only extracts the following:
