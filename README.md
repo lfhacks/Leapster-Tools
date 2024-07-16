@@ -55,4 +55,6 @@ https://www.foobar2000.org/download
 
 Incomplete (but usable) Leapster soundfont:
 
-[Trash-Font 10.zip](https://github.com/user-attachments/files/15954614/Trash-Font.10.zip)
+[Latest Trash-Font.zip](https://github.com/user-attachments/files/16256546/Latest.Trash-Font.zip)
+
+While all instruments are mapped to the right preset numbers, not all of them hake their root keys mapped right yet. Some are also game-specific and need to be removed and put into their own soundfonts in the future.
