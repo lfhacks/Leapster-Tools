@@ -3,6 +3,10 @@ A replacement for LeapFrog-Tools with an end goal of having the highest accuracy
 
 Feel free to reimplement, borrow or use this documentation for your own research and tools.
 
+Be sure to go to the releases page to get the latest version:
+
+https://github.com/lfhacks/Leapster-Tools/releases
+
 # LeapSplit
 Currently, LeapSplit only extracts the following:
 - Product info (stuff like the name, version number, compiler name and build date)
