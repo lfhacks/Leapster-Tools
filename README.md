@@ -62,3 +62,6 @@ Incomplete (but usable) Leapster soundfont:
 [Latest Trash-Font.zip](https://github.com/user-attachments/files/16256546/Latest.Trash-Font.zip)
 
 While all instruments are mapped to the right preset numbers, not all of them hake their root keys mapped right yet. Some are also game-specific and need to be removed and put into their own soundfonts in the future.
+
+# Additional information
+[Work in progress Leapster documentation](https://gist.github.com/BLiNXthetimesweeperGOD/cc98ea1ddb439c886f1921a7fb9312ba)
