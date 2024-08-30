@@ -249,7 +249,8 @@ def parseSynTable(file, offset, deviceStartAddress): #Parse the SYN table
                 syn.write(SYN)
             try:
                 loadedLoopCount = parseSettings(settingsPath, "loops")
-                convertSYN(f"{paths[5]}SYN_{pointer+initialHandleValue}.bin", convertedPaths[2], loadedLoopCount)
+                pitchBendStrength = parseSettings(settingsPath, "pitchBendStrength")
+                convertSYN(f"{paths[5]}SYN_{pointer+initialHandleValue}.bin", convertedPaths[2], loadedLoopCount, pitchBendStrength)
             except: #This should never happen due to all of the commands being implemented. The script should be thoroughly tested without this try/except block to confirm this.
                 "SYN file failed to convert because the script reached the end of the file early"
 

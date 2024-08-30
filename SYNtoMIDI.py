@@ -11,7 +11,7 @@ currentTrack = 0
 # Function to add MIDI messages to the track
 
 
-def convertSYN(file, path, loadedLoopCount):
+def convertSYN(file, path, loadedLoopCount, pitchBendStrength):
     if loadedLoopCount > 127: #This is where the cap mentioned in the settings file is implemented.
         loadedLoopCount = 127
     track = mido.MidiTrack()
@@ -26,6 +26,11 @@ def convertSYN(file, path, loadedLoopCount):
             track.append(mido.Message('note_off', note=data1, velocity=0, channel=channel, time=delta_time))
         elif message_type == 'pitch_wheel':
             track.append(mido.Message('pitchwheel', channel=channel, pitch=data1, time=delta_time))
+        elif message_type == 'set_range':
+            track.append(mido.Message('control_change', control=101, value=0, channel=channel, time=0))
+            track.append(mido.Message('control_change', control=100, value=0, channel=channel, time=0))
+            track.append(mido.Message('control_change', control=6, value=data1, channel=channel, time=0))
+            track.append(mido.Message('control_change', control=38, value=data2, channel=channel, time=0))
     mid = mido.MidiFile(type=1)
     with open(file, "rb") as syn:
         header, track_count = struct.unpack("<HH",syn.read(4))
@@ -34,6 +39,7 @@ def convertSYN(file, path, loadedLoopCount):
         track.append(mido.MetaMessage('set_tempo', tempo=1925000))
         mid.tracks.append(track)
         for synTrack in range(track_count):
+            
             lastDuration = -1 #Store the last note duration here
             lastNote = -1     #Store the last note here
             tracks = 0
@@ -97,6 +103,7 @@ def convertSYN(file, path, loadedLoopCount):
                         print(current_bend)
                         current_bend =0
                     add_midi_message('pitch_wheel', currentSynTrack, current_bend, 127, duration)
+                    
 
 
                 if data[0] == 0x8E: #Start of loop
@@ -124,7 +131,7 @@ def convertSYN(file, path, loadedLoopCount):
                 if data[0] in range(0x00, 0x7F):
                     note = data[0]
                     duration = syn.read(1)[0]
-                    #current_bend = 0 #Reset the pitch bend for every note (mainly because figuring out how they work is still a work in progress)
+                    current_bend = 0 #Reset the pitch bend for every note (mainly because figuring out how they work is still a work in progress)
                     if duration >= 0x80 and duration < 0xFF:
                         duration -= 0x80
                         if duration <= 0xF:
@@ -155,6 +162,7 @@ def convertSYN(file, path, loadedLoopCount):
                         add_midi_message('control_change', currentSynTrack, 111, zero, 0)
                         hasLoopEnd = False
                     break
+            add_midi_message('set_range', channel=currentSynTrack, data1=pitchBendStrength, data2=0, delta_time=0)
             syn.seek(lastTrack)
         base, ext = os.path.splitext(file)
         base = base.split("/")[-1]
