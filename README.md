@@ -17,7 +17,7 @@ How to use LeapSplit:
 
 Known issues with LeapSplit:
 - Pitch bends aren't properly implemented in the SYN to MIDI script
-- First-time etup can be a bit annoying thanks to the g711 library not being pre-compiled
+- First-time setup can be a bit annoying thanks to the g711 library not being pre-compiled
 - LPC extraction is incomplete and the format still needs to be figured out
 - It either doesn't work on Linux or needs a ton of workarounds to get it working on Linux
 
