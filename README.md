@@ -29,7 +29,8 @@ Get the official MIDI plugin from the Foobar2000 website, as looping is handled 
 
 Incomplete (but usable) Leapster soundfont:
 
-[Latest Trash-Font.zip](https://github.com/user-attachments/files/16256546/Latest.Trash-Font.zip)
+[Latest Leap-Font rip update](https://github.com/user-attachments/files/16818575/Latest.Leap-Font.zip)
+
 
 While all instruments are mapped to the right preset numbers, not all of them have their root keys mapped right yet. Some are also game-specific and need to be removed and put into their own soundfonts in the future.
 
