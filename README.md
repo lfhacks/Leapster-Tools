@@ -33,5 +33,9 @@ Incomplete (but usable) Leapster soundfont:
 
 While all instruments are mapped to the right preset numbers, not all of them have their root keys mapped right yet. Some are also game-specific and need to be removed and put into their own soundfonts in the future.
 
+Be sure to go to the settings, load the Leapster SF2 and change the interpolation mode to linear interpolation! Any other interpolation mode is inaccurate to the hardware.
+
+(The hardware only makes it sound interpolated because the Leap-Font sound driver caps the audio output to 8000Hz. The hardware itself is able to go up to 12000Hz.)
+
 # Additional information
 [Work in progress Leapster documentation](https://gist.github.com/BLiNXthetimesweeperGOD/cc98ea1ddb439c886f1921a7fb9312ba)
