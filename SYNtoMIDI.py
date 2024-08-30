@@ -53,6 +53,7 @@ def convertSYN(file, path, loadedLoopCount, pitchBendStrength):
             volume = 127
             hasLoop = False
             hasLoopEnd = False
+            add_midi_message('set_range', channel=currentSynTrack, data1=pitchBendStrength, data2=0, delta_time=0)
             if currentSynTrack == 9: #The bothersome "percussion" channel must be stopped. It has ruined countless lives and - oh, wait. I can just skip it.
                 currentSynTrack += 1
             while True:
@@ -81,6 +82,7 @@ def convertSYN(file, path, loadedLoopCount, pitchBendStrength):
                         add_midi_message('program_change', currentSynTrack, instrument, None, 0)
 
                 if data[0] == 0x8A: #Pitch bend
+                    
                     bend = struct.unpack("<B", syn.read(1))[0]
                     duration = syn.read(1)[0]
                     if duration >= 0x80 and duration < 0xFF:
@@ -162,7 +164,7 @@ def convertSYN(file, path, loadedLoopCount, pitchBendStrength):
                         add_midi_message('control_change', currentSynTrack, 111, zero, 0)
                         hasLoopEnd = False
                     break
-            add_midi_message('set_range', channel=currentSynTrack, data1=pitchBendStrength, data2=0, delta_time=0)
+            
             syn.seek(lastTrack)
         base, ext = os.path.splitext(file)
         base = base.split("/")[-1]
