@@ -33,5 +33,5 @@ genMAP=0_ Lists out all offsets in the ROM header in a bunch of .txt files for r
 ?
 ?
 ? LF SYN to MIDI variables
-loops=1_ How many loops you want in your converted MIDIs (capped at 127 both for accuracy and your sanity)
+loops=2_ How many loops you want in your converted MIDIs (capped at 127 both for accuracy and your sanity)
 pitchBendStrength=8_ How strong you want the pitch bends in the output MIDIs to be

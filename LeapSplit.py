@@ -6,18 +6,20 @@ from tkinter import filedialog
 try:
     from PIL import Image
 except:
-    import GetDepends
+    import Scripts.GetDepends
     from PIL import Image
 
+#Used to load the SplitterSettings.txt file
+from Settings.LoadSettings import *
+
 #To avoid clutter (and make future revisions of them easier to manage), conversion scripts are stored separately.
-from SYNtoMIDI import * 
-from ALAWtoWAV import *
-from DPAKExtract import *
-from TorusPalRipper import *
+from Scripts.SYNtoMIDI import * 
+from Scripts.ALAWtoWAV import *
+from Scripts.DPAKExtract import *
+from Scripts.TorusPalRipper import *
 
 #"Ugly" functions go here. They contain janky looking code due to a lack of documentation or take up lots of space and could be cleaned up a bit.
-from UglyFunctions import *
-from Settings.LoadSettings import *
+from Scripts.UglyFunctions import *
 
 root = tk.Tk()#Create a root window
 root.withdraw()#Hide the root window
