@@ -6,20 +6,19 @@ from tkinter import filedialog
 try:
     from PIL import Image
 except:
-    import Scripts.GetDepends
+    import Libraries.GetDepends
     from PIL import Image
 
 #Used to load the SplitterSettings.txt file
-from Settings.LoadSettings import *
+from Libraries.LoadSettings import *
 
 #To avoid clutter (and make future revisions of them easier to manage), conversion scripts are stored separately.
-from Scripts.SYNtoMIDI import * 
-from Scripts.ALAWtoWAV import *
-from Scripts.DPAKExtract import *
-from Scripts.TorusPalRipper import *
+from Libraries.SYNtoMIDI import * 
+from Libraries.ALAWtoWAV import *
+from Libraries.Torus import *
 
 #"Ugly" functions go here. They contain janky looking code due to a lack of documentation or take up lots of space and could be cleaned up a bit.
-from Scripts.UglyFunctions import *
+from Libraries.UglyFunctions import *
 
 root = tk.Tk()#Create a root window
 root.withdraw()#Hide the root window
@@ -531,7 +530,7 @@ def leapParse(file, paths): #LeapFrog header parser
 for file in files:
     #The following contains every path we'll save files to when the script is ready.
     ROMName = os.path.basename(file).split(".")[0]
-    settingsPath = "Settings/SplitterSettings.txt"
+    settingsPath = "SplitterSettings.txt"
     paths = [os.getcwd()+f"/Split_ROMs/{ROMName}/",                  #Index = 0, Root folder (title info goes here)
              os.getcwd()+f"/Split_ROMs/{ROMName}/Audio/GAS/",        #Index = 1, GAS folder
              os.getcwd()+f"/Split_ROMs/{ROMName}/Audio/Instruments/",#Index = 2, Instrument folder
