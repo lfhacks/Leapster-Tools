@@ -3,15 +3,11 @@ A replacement for LeapFrog-Tools with an end goal of having the highest accuracy
 
 Feel free to reimplement, borrow or use this documentation for your own research and tools.
 
-Be sure to go to the releases page to get the latest version:
-
-https://github.com/lfhacks/Leapster-Tools/releases
-
 # LeapSplit
 Currently, LeapSplit extracts all of the formats I've at least partially figured out.
 
 How to use LeapSplit:
-- Double click the script
+- Double click the "LeapSplit" script
 - Navigate to and double click your ROM
 - Dig through the assets that have been extracted from your ROM (should be in {script folder}/Split_ROMs/{game name}/)
 
