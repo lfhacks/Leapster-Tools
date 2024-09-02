@@ -9,7 +9,7 @@ Feel free to reimplement, borrow or use this documentation for your own research
 - Navigate to and double click your ROM
 - Dig through the assets that have been extracted from your ROM (should be in {script folder}/Split_ROMs/{game name}/)
 
-If the GetDepends script fails to grab all of the libraries for you, you'll need to install them yourself (or you're on Linux. A fix for that is planned when this is more complete.)
+If the GetDepends script fails to grab all of the libraries for you (the thing that opens CMD windows the first time you run the script), you'll need to install them yourself (or you're on Linux. A fix for that is planned when this is more complete.)
 
 Needed libraries:
 - g711 (for A-Law encoded audio)
