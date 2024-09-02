@@ -4,14 +4,21 @@ A replacement for LeapFrog-Tools with an end goal of having the highest accuracy
 Feel free to reimplement, borrow or use this documentation for your own research and tools.
 
 # LeapSplit
-Currently, LeapSplit extracts all of the formats I've at least partially figured out.
-
-How to use LeapSplit:
+### How to use LeapSplit
 - Double click the "LeapSplit" script
 - Navigate to and double click your ROM
 - Dig through the assets that have been extracted from your ROM (should be in {script folder}/Split_ROMs/{game name}/)
 
-Known issues with LeapSplit:
+If the GetDepends script fails to grab all of the libraries for you, you'll need to install them yourself (or you're on Linux. A fix for that is planned when this is more complete.)
+
+Needed libraries:
+- g711 (for A-Law encoded audio)
+- mido (for the SYN to MIDI conversions)
+- pillow (for extracting palettes from games made by Torus and the eventual extraction of sprites)
+- scipy (for the WAV conversions)
+- numpy (used alongside scipy)
+
+### Known issues with LeapSplit
 - Pitch bends aren't properly implemented in the SYN to MIDI script
 - First-time setup can be a bit annoying thanks to the g711 library not being pre-compiled
 - LPC extraction is incomplete and the format still needs to be figured out
