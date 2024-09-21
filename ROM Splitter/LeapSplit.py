@@ -333,36 +333,44 @@ def parseRIB(file, deviceStartAddress, ribTable): #Using the information obtaine
                 elif RIB_Group_ID == 0x1003: #Product info group
                     productInfoCount = struct.unpack("<H", rom.read(2))[0]
                     productInfoOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"Product info at {hex(productInfoOffset)}")
                     parseProductInfo(file, deviceStartAddress, productInfoOffset, productInfoCount)
                     
                 elif RIB_Group_ID == 0x1005: #"Group"
                     groupCount = struct.unpack("<H", rom.read(2))[0]
                     groupOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"'Group' (1) group at {hex(groupOffset)}")
                     
                 elif RIB_Group_ID == 0x1006: #Asset group
                     assetTableCount = struct.unpack("<H", rom.read(2))[0]
                     assetTableOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"Asset table at {hex(assetTableOffset)}")
                     parseAssetTable(file, deviceStartAddress, assetTableOffset, assetTableCount)
 
                 elif RIB_Group_ID == 0x1009: #Leapster System Apps
                     systemAppCount = struct.unpack("<H", rom.read(2))[0]
                     systemAppOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"System App Table at {hex(systemAppOffset)}")
                     
                 elif RIB_Group_ID == 0x100C: #Leapster Datasets
                     datasetCount = struct.unpack("<H", rom.read(2))[0]
                     datasetOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"Leapster Datasets at {hex(datasetOffset)}")
 
                 elif RIB_Group_ID == 0x100D: #C-Style Datasets
                     cDatasetCount = struct.unpack("<H", rom.read(2))[0]
                     cDatasetOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"C-Style Datasets at {hex(cDatasetOffset)}")
                     
                 elif RIB_Group_ID == 0x2000: #Leapster Apps
                     appCount = struct.unpack("<H", rom.read(2))[0]
                     appOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"Leapster Apps at {hex(appOffset)}")
 
                 elif RIB_Group_ID == 0x3001: #"Group"
                     groupCount = struct.unpack("<H", rom.read(2))[0]
                     groupOffset = struct.unpack("<I", rom.read(4))[0]-deviceStartAddress
+                    print(f"'Group' (2) group at {hex(groupOffset)}")
 
                 else: #Unknown group
                     print(f"This group ({hex(RIB_Group_ID)}) is undocumented and as a result, completely unknown.")

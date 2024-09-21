@@ -2,6 +2,33 @@
 import struct
 import os
 global file
+import numpy as np
+from numpy.polynomial.polynomial import Polynomial
+
+integers = np.array([0x4414f209, #33
+                     1136371934, #41
+                     0x437a7eb7, #48
+                     1128714604, #52
+                     1127983326, #53
+                     1127293072, #54
+                     0x42fa7eb7, #60
+                     1120326036, #64
+                     1117637974, #68
+                     1115992599, #71
+                     0x427a7ed6, #72
+                     1108121083, #82
+                     1107603973, #83
+                     1106014128, #85
+                     ])
+keys = np.array([33,41,48,52,53,54,60,64,68,71,72,82,83,85
+                 ])
+p = Polynomial.fit(integers, keys, 2)
+
+def lfPitchToKey(pitch):
+    key = p(pitch)
+    if pitch == 1123712695:
+        key = 60
+    return key
 
 def getString(file, offset): #Gets any 0 terminated string at any given offset. Useful for stuff like title info.
     string = ""
@@ -15,7 +42,7 @@ def getString(file, offset): #Gets any 0 terminated string at any given offset. 
     return string
 
 def convertPitch(pitchValue): #A function for converting the Leapster's pitch format to notes (needs more research)
-    instrumentKey = 90-round((pitchValue - 0x41a72f8a)/0xB5000)
+    instrumentKey = lfPitchToKey(pitchValue)
     return instrumentKey
     
 
