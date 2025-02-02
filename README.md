@@ -32,7 +32,8 @@ Get the official MIDI plugin from the Foobar2000 website, as looping is handled 
 
 Incomplete (but usable) Leapster soundfont:
 
-[Latest Leap-Font rip update](https://github.com/user-attachments/files/16822804/Latest.Leap-Font.zip)
+Latest Leap-Font rip update:
+[LeapFrog Leap-Font.zip](https://github.com/user-attachments/files/18633090/LeapFrog.Leap-Font.zip)
 
 
 
